@@ -61,7 +61,7 @@ import { Component } from '@angular/core';
     background-color: white;
     display: block;
     padding: 20px;
-    line-height: 1.6;a
+    line-height: 1.6;
   }
 
   .content-container {
