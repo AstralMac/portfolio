@@ -15,12 +15,20 @@ import { Component } from '@angular/core';
           <span class="accordion-icon">+</span> My Info
         </button>
         <div class="accordion-content">
-          <p>Hi, I’m Malcolm Abdullah, an aspiring Web Developer and Designer graduating in March 2025 from Bellevue University with a strong foundation in building dynamic, user-friendly web applications. I specialize in:</p>
-          <ul>
-            <li>Front-End Development: HTML, CSS, JavaScript, Angular w/ TypeScript</li>
-            <li>Back-End Integration: Python, MongoDB, JSON</li>
+        <ul class="contact-list">
+            <li class="contact-item">
+              <a href="mailto:astralisdesignsstl@gmail.com">
+                <img src="/assets/email.png" alt="Email" class="contact-icon">
+                <span class="contact-text">astralisdesignsstl&#64;gmail.com</span>
+              </a>
+            </li>
+            <li class="contact-item">
+              <a href="tel:+13146952160">
+                <img src="/assets/phone.png" alt="Phone" class="contact-icon">
+                <span class="contact-text">314-695-2160</span>
+              </a>
+            </li>
           </ul>
-          <p>I’m passionate about creating intuitive, responsive designs and am excited to begin my career in web development.</p>
         </div>
       </div>
 
@@ -30,7 +38,14 @@ import { Component } from '@angular/core';
           <span class="accordion-icon">+</span> Objective
         </button>
         <div class="accordion-content">
-          <p>I’m Malcolm Abdullah, an aspiring Web Developer and Designer. Let’s connect and bring innovative ideas to life!</p>
+          <p>Hi, I’m Malcolm Abdullah, an aspiring Web Developer and Designer graduating in March 2025 from Bellevue University with a strong foundation in building dynamic, user-friendly web applications. I specialize in:</p>
+          <br/>
+          <ul>
+            <li>Front-End Development: HTML, CSS, JavaScript, Angular w/ TypeScript</li>
+            <li>Back-End Integration: Python, MongoDB, JSON</li>
+          </ul>
+          <br/>
+          <p>I’m passionate about creating intuitive, responsive designs and am excited to begin my career in web development. Let’s connect and bring innovative ideas to life!</p>
         </div>
       </div>
 
@@ -143,19 +158,19 @@ import { Component } from '@angular/core';
   }
 
   .accordion-button {
-    background-color: #264769;
-    color: white;
-    padding: 10px;
-    width: 100%;
-    text-align: left;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2em;
-    transition: background-color 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between title and icon */
+  background-color: #264769;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: background-color 0.3s ease;
+}
 
   .accordion-button:hover {
     background-color: #1a3d56;
@@ -173,8 +188,8 @@ import { Component } from '@angular/core';
   }
 
   .accordion-content ul {
-    list-style-type: none;
-    padding: 0;
+    list-style-type: ;
+    padding: 15px;
   }
 
   .accordion-content ul li {
@@ -198,6 +213,28 @@ import { Component } from '@angular/core';
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
+
+  .contact-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .contact-icon {
+      width: 100px;
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .contact-text {
+      font-size: 1.1em;
+      color: #264769;
+    }
 
   .download-button:hover {
     background-color: #1a3d56;

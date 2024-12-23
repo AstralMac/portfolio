@@ -2,8 +2,7 @@
  * Author: Malcolm Abdullah
  * Date: 12-20-24
  * File: my-work.js
- * Description: This code is used to generate a list of my past projects.
- * This code includes a series of unit tests to validate the code.
+ * Description: This code generates a list of past projects and includes unit tests for validation.
  */
 
 "use strict";
@@ -15,73 +14,65 @@ const url = require('url');
 // array of my past projects.
 const work = [
   {
-    title:"Web-231",
-    description:"",
-    link:""
+    title: "Web-231",
+    description: "Assignments & Projects for Enterprise JavaScript I",
+    link: "https://github.com/AstralMac/web-231"
   },
   {
-    title:"Web-330",
-    description:"",
-    link:""
+    title: "Web-330",
+    description: "Enterprise JavaScript II",
+    link: "https://github.com/AstralMac/Web-330"
   },
   {
-    title:"Web-335",
-    description:"",
-    link:""
+    title: "Web-335",
+    description: "WEB335-J310 Introduction to NoSQL (2247-DD)",
+    link: "https://github.com/AstralMac/web-335"
   },
   {
-    title:"Web-340",
-    description:"",
-    link:""
+    title: "Web-340",
+    description: "Node.js",
+    link: "https://github.com/AstralMac/web-340"
   },
   {
-    title:"Web-420",
-    description:"",
-    link:""
+    title: "Web-420",
+    description: "WEB420-J310 RESTFul APIs (2247-DD)",
+    link: "https://github.com/AstralMac/web-420"
   },
   {
-    title:"Web-425",
-    description:"",
-    link:""
+    title: "Web-425",
+    description: "Angular with TypeScript",
+    link: "https://github.com/AstralMac/web-425"
   },
   {
-    title:"BioSite",
-    description:"",
-    link:""
-  },
+    title: "BioSite",
+    description: "Fundamentals of Web Development",
+    link: "https://github.com/AstralMac/BioSite"
+  }
 ];
 
 // create a new server
 const server = http.createServer((req, res) => {
-  const parseUrl = url.parse(req.url, true); // parse the URL
-  const pathname = parseUrl.pathname; // get the path name
+  const parsedUrl = url.parse(req.url, true);
+  const pathname = parsedUrl.pathname;
 
   // Set CORS headers to allow cross-origin requests
-  res.setHeader('Access-Control-Allow-Origin', '*'); // This allows all origins
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Allowed request methods
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 
-  // To call this API, use the following URL:
-  // http://localhost:3000/api/my-work
-  // The API will return a list of my past projects titles and descriptions
-  //
-  // if the path is '/api/my-work' and the method is 'GET'
+  // Route: /api/my-work
   if (pathname === '/api/my-work' && req.method === 'GET') {
-
-    if (!factions) {
-      // if the factions array is empty, return a 404 status code and the message 'Message lost in translation.'
-      res.writeHead(404, { 'Content-Type': 'application/json' }); // set the response header
-      res.end(JSON.stringify({ message: 'Message lost in translation.' })); // send the response
-      return; // exit the function
+    if (work.length === 0) {
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ message: 'No projects found.' }));
+      return;
     }
 
-    // if the factions array is not empty, return it as a JSON response
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(work)); // send the response
+    res.end(JSON.stringify(work));
   } else {
-    // if the path is not '/api/work' or the method is not 'GET', return a 404 status code and the message 'Not found'
     res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not found'); // send the response
+    res.end('Not found');
   }
 });
 
@@ -91,30 +82,20 @@ server.listen(3000, () => {
 });
 
 //////////////////////////// UNIT TESTS /////////////////////////////////
-// Do not modify the code below this line.  They are used to test the implementation above.
-// They are not required for the code to run correctly but are required to pass the tests.
-// The tests will run automatically when the code is run after a 1-second delay.
-// You do not need to understand the code below to complete this week's assignment.
-//
-// WARNING: If you modify the code below, the tests may not run correctly and the API's behavior may change.
-// if this happens, you may not receive full credit for the assignment, because I will have no way to verify
-// week 8's assignment requirements.
-//////////////////////////// UNIT TESTS /////////////////////////////////
 setTimeout(() => {
-  const http = require('http');
   const assert = require('assert');
 
-  function testFactionsList(callback) {
+  function testProjectsList(callback) {
     http.get('http://localhost:3000/api/my-work', (res) => {
       let data = '';
       res.on('data', (chunk) => {
         data += chunk;
       });
       res.on('end', () => {
-        const work = JSON.parse(data);
+        const projects = JSON.parse(data);
         assert.strictEqual(res.statusCode, 200);
-        assert.strictEqual(Array.isArray(work), true);
-        assert.strictEqual(factions.length > 0, true);
+        assert.strictEqual(Array.isArray(projects), true);
+        assert.strictEqual(projects.length > 0, true);
         callback();
       });
     });
@@ -142,20 +123,20 @@ setTimeout(() => {
     });
   }
 
-  function testRunner() {
-    let tests = [testFactionsList, testResponseHeaders, testContentTypeJson, testNotFound];
+  function runTests() {
+    const tests = [testProjectsList, testResponseHeaders, testContentTypeJson, testNotFound];
     let index = 0;
 
-    function nextTest() {
+    function next() {
       if (index < tests.length) {
-        tests[index++](nextTest);
+        tests[index++](next);
       } else {
         console.log('All tests passed!');
       }
     }
 
-    nextTest();
+    next();
   }
 
-  setTimeout(testRunner, 1000);
+  runTests();
 }, 1000);
