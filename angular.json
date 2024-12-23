@@ -60,6 +60,11 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "options": {
+            "port": 8080,
+            "host": "0.0.0.0",
+            "proxyConfig": "proxy.conf.json"
+          },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
