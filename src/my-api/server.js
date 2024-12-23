@@ -1,10 +1,16 @@
-// server.js
-
 "use strict";
 
 // Import required modules
-const http = require("http");
-const url = require("url");
+const express = require("express");
+const cors = require("cors");
+
+// Create an Express app
+const app = express();
+
+// Allow CORS for GitHub Pages domain
+app.use(cors({
+  origin: 'https://astralmac.github.io',  // Adjust this to the domain you're deploying from
+}));
 
 // Define the work data
 const work = [
@@ -45,29 +51,19 @@ const work = [
   },
 ];
 
-// Create a server
-const server = http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url, true);
-  const pathname = parsedUrl.pathname;
+// Define your route to respond with work data
+app.get('/api/my-work', (req, res) => {
+  // Send the 'work' data as JSON response
+  res.status(200).json(work);
+});
 
-  // Set CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
-  if (pathname === "/api/my-work" && req.method === "GET") {
-    // Respond with work data
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(work));
-  } else {
-    // Handle 404 errors
-    res.writeHead(404, { "Content-Type": "text/plain" });
-    res.end("Not Found");
-  }
+// Handle 404 errors for other routes
+app.use((req, res) => {
+  res.status(404).send('Not Found');
 });
 
 // Start the server
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
